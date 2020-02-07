@@ -49,25 +49,18 @@ namespace FormsChatbot.Services
             _amazonLexClient.ExceptionEvent += ExceptionEvent;
         }
 
-        //private void RemoveEventHandlers()
-        //{
-        //    _amazonLexClient.AfterResponseEvent -= AfterResponseEvent;
-        //    _amazonLexClient.BeforeRequestEvent -= BeforeRequestEvent;
-        //    _amazonLexClient.ExceptionEvent -= ExceptionEvent;
-        //}
-
-        public async Task<GetSessionResponse> GetSessionAsync(string sessionId)
+        public async Task<GetSessionResponse> GetSessionAsync(string userId)
         {
-            return await GetSessionAsync(sessionId, default);
+            return await GetSessionAsync(userId, default);
         }
 
-        public async Task<GetSessionResponse> GetSessionAsync(string sessionId, CancellationToken cancellationToken)
+        public async Task<GetSessionResponse> GetSessionAsync(string userId, CancellationToken cancellationToken)
         {
             var getSessionRequest = new GetSessionRequest
             {
                 BotAlias = _awsOptions.LexBotAlias,
                 BotName = _awsOptions.LexBotName,
-                UserId = sessionId
+                UserId = userId
             };
 
             try
@@ -81,18 +74,18 @@ namespace FormsChatbot.Services
             }
         }
 
-        public async Task<DeleteSessionResponse> DeleteSessionAsync(string sessionId)
+        public async Task<DeleteSessionResponse> DeleteSessionAsync(string userId)
         {
-            return await DeleteSessionAsync(sessionId, default);
+            return await DeleteSessionAsync(userId, default);
         }
 
-        public async Task<DeleteSessionResponse> DeleteSessionAsync(string sessionId, CancellationToken cancellationToken)
+        public async Task<DeleteSessionResponse> DeleteSessionAsync(string userId, CancellationToken cancellationToken)
         {
             var deleteSessionRequest = new DeleteSessionRequest
             {
                 BotAlias = _awsOptions.LexBotAlias,
                 BotName = _awsOptions.LexBotName,
-                UserId = sessionId
+                UserId = userId
             };
 
             try
@@ -106,23 +99,23 @@ namespace FormsChatbot.Services
             }
         }
 
-        public async Task<PutSessionResponse> PutSessionAsync(string sessionId)
+        public async Task<PutSessionResponse> PutSessionAsync(string userId)
         {
-            return await PutSessionAsync(sessionId, null, default);
+            return await PutSessionAsync(userId, null, default);
         }
 
-        public async Task<PutSessionResponse> PutSessionAsync(string sessionId, Dictionary<string, string> lexSessionAttributes)
+        public async Task<PutSessionResponse> PutSessionAsync(string userId, Dictionary<string, string> lexSessionAttributes)
         {
-            return await PutSessionAsync(sessionId, lexSessionAttributes, default);
+            return await PutSessionAsync(userId, lexSessionAttributes, default);
         }
 
-        public async Task<PutSessionResponse> PutSessionAsync(string sessionId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken)
+        public async Task<PutSessionResponse> PutSessionAsync(string userId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken)
         {
             var putSessionRequest = new PutSessionRequest
             {
                 BotAlias = _awsOptions.LexBotAlias,
                 BotName = _awsOptions.LexBotName,
-                UserId = sessionId
+                UserId = userId
             };
 
             if (lexSessionAttributes != null)
@@ -139,23 +132,23 @@ namespace FormsChatbot.Services
             }
         }
 
-        public async Task<PostTextResponse> PostTextAsync(string messageToSend, string sessionId)
+        public async Task<PostTextResponse> PostTextAsync(string messageToSend, string userId)
         {
-            return await PostTextAsync(messageToSend, sessionId, null);
+            return await PostTextAsync(messageToSend, userId, null);
         }
 
-        public async Task<PostTextResponse> PostTextAsync(string messageToSend, string sessionId, Dictionary<string, string> lexSessionAttributes)
+        public async Task<PostTextResponse> PostTextAsync(string messageToSend, string userId, Dictionary<string, string> lexSessionAttributes)
         {
-            return await PostTextAsync(messageToSend, sessionId, lexSessionAttributes, default);
+            return await PostTextAsync(messageToSend, userId, lexSessionAttributes, default);
         }
 
-        public async Task<PostTextResponse> PostTextAsync(string messageToSend, string sessionId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken)
+        public async Task<PostTextResponse> PostTextAsync(string messageToSend, string userId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken)
         {
             var lexTextRequest = new PostTextRequest
             {
                 BotAlias = _awsOptions.LexBotAlias,
                 BotName = _awsOptions.LexBotName,
-                UserId = sessionId,
+                UserId = userId,
                 InputText = messageToSend
             };
 
@@ -173,23 +166,23 @@ namespace FormsChatbot.Services
             }
         }
 
-        public async Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string sessionId)
+        public async Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string userId)
         {
-            return await PostContentAsync(content, contentType, sessionId, null, default);
+            return await PostContentAsync(content, contentType, userId, null, default);
         }
 
-        public async Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string sessionId, string lexSessionAttributes)
+        public async Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string userId, string lexSessionAttributes)
         {
-            return await PostContentAsync(content, contentType, sessionId, lexSessionAttributes, default);
+            return await PostContentAsync(content, contentType, userId, lexSessionAttributes, default);
         }
 
-        public async Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string sessionId, string lexSessionAttributes, CancellationToken cancellationToken)
+        public async Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string userId, string lexSessionAttributes, CancellationToken cancellationToken)
         {
             var lexPostContentRequest = new PostContentRequest
             {
                 BotAlias = _awsOptions.LexBotAlias,
                 BotName = _awsOptions.LexBotName,
-                UserId = sessionId,
+                UserId = userId,
                 InputStream = content,
                 ContentType = contentType
             };
@@ -207,31 +200,5 @@ namespace FormsChatbot.Services
                 throw new BadRequestException(ex);
             }
         }
-
-        //#region IDisposable Support
-
-        //private bool disposedValue = false;
-
-        //protected virtual void Dispose(bool disposing)
-        //{
-        //    if (!disposedValue)
-        //    {
-        //        if (disposing)
-        //        {
-        //            RemoveEventHandlers();
-        //            _amazonLexClient.Dispose();
-        //            _awsCredentials.ClearCredentials();
-        //        }
-
-        //        disposedValue = true;
-        //    }
-        //}
-
-        //public void Dispose()
-        //{
-        //    Dispose(true);
-        //}
-
-        //#endregion
     }
 }

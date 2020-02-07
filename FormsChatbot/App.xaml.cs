@@ -2,6 +2,7 @@
 using FormsChatbot.Services;
 using FormsChatbot.ViewModels;
 using Prism.DryIoc;
+using Prism.Events;
 using Prism.Ioc;
 using Xamarin.Forms;
 
@@ -16,6 +17,7 @@ namespace FormsChatbot
         {
             InitializeComponent();
 
+            Resources.Add("eventAggregator", Container.Resolve<IEventAggregator>());
             var result = await NavigationService.NavigateAsync("NavigationPage/MainPage");
 
             if (!result.Success)

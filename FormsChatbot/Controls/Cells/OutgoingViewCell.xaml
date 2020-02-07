@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ViewCell
+    x:Class="FormsChatbot.Controls.Cells.OutgoingViewCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ViewCell.View>
+        <Grid Padding="5" ColumnSpacing="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Image
+                Grid.Row="0"
+                Grid.Column="2"
+                Aspect="AspectFill"
+                HeightRequest="35"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="35">
+                <Image.Source>
+                    <FontImageSource
+                        FontFamily="{DynamicResource MaterialFontFamily}"
+                        Glyph="{StaticResource Account}"
+                        Color="#03A9F4" />
+                </Image.Source>
+            </Image>
+
+            <Frame Grid.Row="0" Grid.Column="1">
+                <Frame.HasShadow>
+                    <OnPlatform
+                        x:TypeArguments="x:Boolean"
+                        Android="true"
+                        iOS="false" />
+                </Frame.HasShadow>
+                <Frame.BackgroundColor>
+                    <OnPlatform
+                        x:TypeArguments="Color"
+                        Android="White"
+                        iOS="#F5F5F5" />
+                </Frame.BackgroundColor>
+
+                <Label Text="{Binding Message}" TextColor="Black" />
+            </Frame>
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                FontSize="Micro"
+                HorizontalTextAlignment="End"
+                Text="{Binding MessageDateTime, StringFormat='{0:dd.MM.yyyy HH:mm:ss}'}"
+                TextColor="Gray" />
+        </Grid>
+    </ViewCell.View>
+</ViewCell>

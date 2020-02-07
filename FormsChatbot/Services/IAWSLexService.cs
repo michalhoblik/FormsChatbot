@@ -13,22 +13,22 @@ namespace FormsChatbot.Services
         RequestEventHandler BeforeRequestEvent { get; }
         ExceptionEventHandler ExceptionEvent { get; }
 
-        Task<GetSessionResponse> GetSessionAsync(string sessionId);
-        Task<GetSessionResponse> GetSessionAsync(string sessionId, CancellationToken cancellationToken);
+        Task<GetSessionResponse> GetSessionAsync(string userId);
+        Task<GetSessionResponse> GetSessionAsync(string userId, CancellationToken cancellationToken);
 
-        Task<PutSessionResponse> PutSessionAsync(string sessionId);
-        Task<PutSessionResponse> PutSessionAsync(string sessionId, Dictionary<string, string> lexSessionAttributes);
-        Task<PutSessionResponse> PutSessionAsync(string sessionId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken);
+        Task<PutSessionResponse> PutSessionAsync(string userId);
+        Task<PutSessionResponse> PutSessionAsync(string userId, Dictionary<string, string> lexSessionAttributes);
+        Task<PutSessionResponse> PutSessionAsync(string userId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken);
 
-        Task<DeleteSessionResponse> DeleteSessionAsync(string sessionId);
-        Task<DeleteSessionResponse> DeleteSessionAsync(string sessionId, CancellationToken cancellationToken);
+        Task<DeleteSessionResponse> DeleteSessionAsync(string userId);
+        Task<DeleteSessionResponse> DeleteSessionAsync(string userId, CancellationToken cancellationToken);
 
-        Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string sessionId);
-        Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string sessionId, string lexSessionAttributes);
-        Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string sessionId, string lexSessionAttributes, CancellationToken cancellationToken);
+        Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string userId);
+        Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string userId, string lexSessionAttributes);
+        Task<PostContentResponse> PostContentAsync(Stream content, string contentType, string userId, string lexSessionAttributes, CancellationToken cancellationToken);
 
-        Task<PostTextResponse> PostTextAsync(string messageToSend, string sessionId);
-        Task<PostTextResponse> PostTextAsync(string messageToSend, string sessionId, Dictionary<string, string> lexSessionAttributes);
-        Task<PostTextResponse> PostTextAsync(string messageToSend, string sessionId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken);
+        Task<PostTextResponse> PostTextAsync(string messageToSend, string userId);
+        Task<PostTextResponse> PostTextAsync(string messageToSend, string userId, Dictionary<string, string> lexSessionAttributes);
+        Task<PostTextResponse> PostTextAsync(string messageToSend, string userId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken);
     }
 }

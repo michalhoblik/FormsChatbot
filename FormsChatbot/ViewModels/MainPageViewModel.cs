@@ -1,50 +1,67 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FormsChatbot.Events;
+using FormsChatbot.Models;
 using FormsChatbot.Services;
-using Prism.AppModel;
+using MvvmHelpers;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Navigation;
 
 namespace FormsChatbot.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase, IPageLifecycleAware
+    public class MainPageViewModel : ViewModelBase
     {
+        private readonly IEventAggregator _eventAggregator;
         private readonly IAWSLexService _lexService;
-        private string _currentSessionId;
+        private string _currentUserId;
 
         public MainPageViewModel(
             INavigationService navigationService,
+            IEventAggregator eventAggregator,
             IAWSLexService lexService)
             : base(navigationService)
         {
+            _eventAggregator = eventAggregator;
             _lexService = lexService;
 
-            _currentSessionId = Guid.NewGuid().ToString();
+            _currentUserId = Guid.NewGuid().ToString();
 
-            StartSessionCommand = new DelegateCommand(async () => await ExecuteStartSessionAsync());
+            Messages = new ObservableRangeCollection<ChatBotMessage>();
+
+            SendCommand = new DelegateCommand(async () => await ExecuteSendCommandAsync());
         }
 
-        public DelegateCommand StartSessionCommand { get; }
+        public ObservableRangeCollection<ChatBotMessage> Messages { get; }
 
-        public void OnAppearing()
-        {
-        }
+        public DelegateCommand SendCommand { get; }
 
-        public void OnDisappearing()
-        {
-            
-        }
+        public string OutGoingText { get; set; } = string.Empty;
 
-        private async Task ExecuteStartSessionAsync()
+        private async Task ExecuteSendCommandAsync()
         {
             try
             {
-                var response = await _lexService.PutSessionAsync(_currentSessionId);
+                var userMessage = ChatBotMessage.Create(0, MessageType.UserMessage, OutGoingText, DateTime.Now);
+                AddAndScrollToItem(userMessage);
+
+                OutGoingText = string.Empty;
+
+                var response = await _lexService.PostTextAsync(userMessage.Message, _currentUserId);
+
+                var botMessage = ChatBotMessage.Create(1, MessageType.LexMessage, response.Message, DateTime.Now);
+                AddAndScrollToItem(botMessage);
             }
             catch (Exception ex)
             {
-
+               
             }
+        }
+
+        private void AddAndScrollToItem(ChatBotMessage message)
+        {
+            Messages.Add(message);
+            _eventAggregator.GetEvent<ScrollToChatBotMessageEvent>().Publish(message);
         }
     }
 }

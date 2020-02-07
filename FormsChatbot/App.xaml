@@ -7,5 +7,43 @@
     xmlns:dryioc="http://prismlibrary.com"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Application.Resources />
+    <Application.Resources>
+        <OnPlatform x:Key="MaterialFontFamily" x:TypeArguments="x:String">
+            <On Platform="iOS" Value="Material Design Icons" />
+            <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+        </OnPlatform>
+
+        <OnPlatform
+            x:Key="WindowBackground"
+            x:TypeArguments="Color"
+            Android="#303030"
+            iOS="#F4F6FB" />
+
+        <!--  Material Icons  -->
+        <x:String x:Key="ChevronRight">&#xf142;</x:String>
+        <x:String x:Key="Delete">&#xf1c0;</x:String>
+        <x:String x:Key="FileImage">&#xf21f;</x:String>
+        <x:String x:Key="Send">&#xF48A;</x:String>
+        <x:String x:Key="Robot">&#xF6A8;</x:String>
+        <x:String x:Key="Account">&#xF004;</x:String>
+
+        <Color x:Key="PrimaryColor">#6002ee</Color>
+        <Color x:Key="PrimaryLightColor">#B794F6</Color>
+        <Color x:Key="PrimaryEntryColor">White</Color>
+        <!--<Color x:Key="NavigationPrimary">#2196F3</Color>-->
+
+        <Color x:Key="ComplementaryColor">#90ee02</Color>
+        <Color x:Key="AnalogousColor">#d602ee</Color>
+        <Color x:Key="Analogous2Color">#021aee</Color>
+        <Color x:Key="TriadicColor">#ee0290</Color>
+        <Color x:Key="Triadic2Color">#ee6002</Color>
+
+        <Color x:Key="ErrorColor">#ff5252</Color>
+
+        <Color x:Key="NavigationPrimary">#6002ee</Color>
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+            <Setter Property="BarTextColor" Value="White" />
+        </Style>
+    </Application.Resources>
 </dryioc:PrismApplication>
