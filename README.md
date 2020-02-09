@@ -5,7 +5,7 @@ Xamarin.Forms App using AWS Amazon Lex Bot Service
 
 Branch|Platform|Status
 ------|------|------
-Master|iOS|[![Build status]()](https://appcenter.ms)
+Master|iOS|[![Build status](https://build.appcenter.ms/v0.1/apps/2e2cbe6c-2ebe-45c9-84f2-1436f4948910/branches/master/badge)](https://appcenter.ms)
 
 ## Getting the application to build locally
 
