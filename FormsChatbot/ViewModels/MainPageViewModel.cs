@@ -6,7 +6,9 @@ using FormsChatbot.Services;
 using MvvmHelpers;
 using Prism.Commands;
 using Prism.Events;
+using Prism.Logging;
 using Prism.Navigation;
+using Prism.Services;
 
 namespace FormsChatbot.ViewModels
 {
@@ -18,9 +20,11 @@ namespace FormsChatbot.ViewModels
 
         public MainPageViewModel(
             INavigationService navigationService,
+            IPageDialogService pageDialogService,
+            ILogger logger,
             IEventAggregator eventAggregator,
             IAWSLexService lexService)
-            : base(navigationService)
+            : base(navigationService, pageDialogService, logger)
         {
             _eventAggregator = eventAggregator;
             _lexService = lexService;
@@ -54,7 +58,8 @@ namespace FormsChatbot.ViewModels
             }
             catch (Exception ex)
             {
-               
+                Logger.Report(ex);
+                await PageDialogService.DisplayAlertAsync("Error", "An error occurred", "OK");
             }
         }
 

@@ -35,8 +35,10 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>UIAppFonts</key>
-56		<array>
-57			<string>materialdesignicons-webfont.ttf</string>
-58		</array>
+		<array>
+			<string>materialdesignicons-webfont.ttf</string>
+		</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>The FormsChatBot wants to use your microphone to record audio.</string>
 </dict>
 </plist>
