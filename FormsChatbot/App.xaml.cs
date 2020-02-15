@@ -2,6 +2,7 @@
 using DryIoc;
 using FormsChatbot.Services;
 using FormsChatbot.ViewModels;
+using FormsChatbot.Views;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -11,6 +12,8 @@ using Prism.Events;
 using Prism.Ioc;
 using Prism.Logging;
 using Prism.Logging.AppCenter;
+using Xamarin.Essentials.Implementation;
+using Xamarin.Essentials.Interfaces;
 using Xamarin.Forms;
 
 namespace FormsChatbot
@@ -60,7 +63,10 @@ namespace FormsChatbot
             containerRegistry.RegisterSingleton<IAWSOptions, AWSOptions>();
             containerRegistry.Register<IAWSLexService, AWSLexService>();
 
+            containerRegistry.RegisterSingleton<IPreferences, PreferencesImplementation>();
+
             containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<OrderPizzaPage, OrderPizzaViewModel>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
         }
 

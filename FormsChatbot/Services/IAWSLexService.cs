@@ -17,8 +17,9 @@ namespace FormsChatbot.Services
         Task<GetSessionResponse> GetSessionAsync(string userId, CancellationToken cancellationToken);
 
         Task<PutSessionResponse> PutSessionAsync(string userId);
-        Task<PutSessionResponse> PutSessionAsync(string userId, Dictionary<string, string> lexSessionAttributes);
-        Task<PutSessionResponse> PutSessionAsync(string userId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken);
+        Task<PutSessionResponse> PutSessionAsync(string userId, DialogAction dialogAction);
+        Task<PutSessionResponse> PutSessionAsync(string userId, DialogAction dialogAction, Dictionary<string, string> lexSessionAttributes);
+        Task<PutSessionResponse> PutSessionAsync(string userId, DialogAction dialogAction, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken);
 
         Task<DeleteSessionResponse> DeleteSessionAsync(string userId);
         Task<DeleteSessionResponse> DeleteSessionAsync(string userId, CancellationToken cancellationToken);

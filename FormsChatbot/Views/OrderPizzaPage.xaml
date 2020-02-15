@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="FormsChatbot.Views.OrderPizzaPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:FormsChatbot.Behaviors"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:selectors="clr-namespace:FormsChatbot.Controls.Selectors"
+    Title="{Binding Title}"
+    ios:Page.UseSafeArea="True"
+    BackgroundColor="{StaticResource Key=WindowBackground}"
+    Visual="Material"
+    mc:Ignorable="d">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <selectors:ChatDataTemplateSelector x:Key="MessageTemplateSelector" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--  Messages in Row 0  -->
+        <ListView
+            x:Name="MessagesListView"
+            HasUnevenRows="True"
+            ItemTemplate="{StaticResource MessageTemplateSelector}"
+            ItemsSource="{Binding Messages}"
+            SelectionMode="None"
+            SeparatorVisibility="None">
+            <ListView.Behaviors>
+                <behaviors:ScrollToChatBotMessageBehavior EventAggregator="{StaticResource eventAggregator}" />
+            </ListView.Behaviors>
+        </ListView>
+
+        <!--  Entry and Send button in Row 1  -->
+        <StackLayout
+            Grid.Row="1"
+            Padding="10"
+            BackgroundColor="#EFEFEF"
+            Orientation="Horizontal">
+            <Entry
+                HeightRequest="25"
+                HorizontalOptions="FillAndExpand"
+                Placeholder="Message"
+                Text="{Binding OutGoingText}" />
+            <ImageButton Command="{Binding SendCommand}">
+                <ImageButton.Source>
+                    <FontImageSource
+                        FontFamily="{DynamicResource MaterialFontFamily}"
+                        Glyph="{StaticResource Send}"
+                        Size="25"
+                        Color="{StaticResource PrimaryColor}" />
+                </ImageButton.Source>
+            </ImageButton>
+        </StackLayout>
+    </Grid>
+</ContentPage>

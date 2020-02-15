@@ -101,15 +101,20 @@ namespace FormsChatbot.Services
 
         public async Task<PutSessionResponse> PutSessionAsync(string userId)
         {
-            return await PutSessionAsync(userId, null, default);
+            return await PutSessionAsync(userId, null);
         }
 
-        public async Task<PutSessionResponse> PutSessionAsync(string userId, Dictionary<string, string> lexSessionAttributes)
+        public async Task<PutSessionResponse> PutSessionAsync(string userId, DialogAction dialogAction)
         {
-            return await PutSessionAsync(userId, lexSessionAttributes, default);
+            return await PutSessionAsync(userId, dialogAction, null);
         }
 
-        public async Task<PutSessionResponse> PutSessionAsync(string userId, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken)
+        public async Task<PutSessionResponse> PutSessionAsync(string userId, DialogAction dialogAction, Dictionary<string, string> lexSessionAttributes)
+        {
+            return await PutSessionAsync(userId, dialogAction, lexSessionAttributes, default);
+        }
+
+        public async Task<PutSessionResponse> PutSessionAsync(string userId, DialogAction dialogAction, Dictionary<string, string> lexSessionAttributes, CancellationToken cancellationToken)
         {
             var putSessionRequest = new PutSessionRequest
             {
@@ -117,6 +122,9 @@ namespace FormsChatbot.Services
                 BotName = _awsOptions.LexBotName,
                 UserId = userId
             };
+
+            if (dialogAction != null)
+                putSessionRequest.DialogAction = dialogAction;
 
             if (lexSessionAttributes != null)
                 putSessionRequest.SessionAttributes = lexSessionAttributes;
